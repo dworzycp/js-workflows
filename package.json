@@ -1,21 +1,23 @@
 {
   "name": "js-workflows",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A simple state machine workflow implementation for JS",
-  "main": "dist/index.ts",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
   "types": "dist/types/index.d.ts",
   "files": [
     "/dist"
   ],
   "scripts": {
-    "build": "tsc && npm run build:cleanup && esbuild src/index.ts --bundle --outdir=dist && npm run build:types",
-    "build:cleanup": "rm -rf dist",
+    "build": "tsc && npm run build:cleanup && node scripts/build.js && npm run build:types && babel dist -d dist",
+    "build:cleanup": "rm -rf dist && rm -rf lib",
     "build:types": "tsc -p ./tsconfig.types.json",
     "test": "jest --coverage"
   },
   "author": "Pawel Dworzycki",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.22.9",
     "@babel/core": "^7.22.9",
     "@babel/preset-env": "^7.22.9",
     "@babel/preset-typescript": "^7.22.5",
